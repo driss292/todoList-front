@@ -5,12 +5,12 @@ export function getTodos() {
   return axios.get(apiUrl);
 }
 
-export function addTodo(todo) {
-  return axios.post(apiUrl + "/create", todo);
+export function addTodo(text) {
+  return axios.post(apiUrl + "/create", text);
 }
 
-export function completeTodo(id) {
-  return axios.put(apiUrl + "/complete/" + id);
+export function completeTodo(id, completed) {
+  return axios.put(apiUrl + "/complete/" + id, completed);
 }
 
 export function updateTodo(id, todo) {
