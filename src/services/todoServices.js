@@ -13,8 +13,8 @@ export function completeTodo(id, completed) {
   return axios.put(apiUrl + "/complete/" + id, completed);
 }
 
-export function updateTodo(id, todo) {
-  return axios.put(apiUrl + "/update/" + id, todo);
+export function updateTodo(id, updated) {
+  return axios.put(apiUrl + "/update/" + id, updated);
 }
 
 export function deleteTodo(id) {

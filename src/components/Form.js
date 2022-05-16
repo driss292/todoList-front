@@ -11,7 +11,7 @@ export default function Form({ input, setInput }) {
   const onFormSubmit = async (e) => {
     e.preventDefault();
     try {
-      await addTodo({ text: input });
+      await addTodo({ text: input, completed: false });
       //   console.log(response);
       setInput("");
     } catch (error) {
