@@ -4,7 +4,7 @@ import Todo from "./Todo";
 export default function TodosList({ data }) {
   return (
     <div>
-      {data?.map((todo) => {
+      {data.map((todo) => {
         return (
           <Todo
             key={todo._id}
