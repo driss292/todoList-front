@@ -1,4 +1,6 @@
 import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { getPosts } from "./actions/post.action";
 import "./App.css";
 import Form from "./components/Form";
 import Header from "./components/Header";
@@ -13,21 +15,35 @@ import {
 } from "./services/todoServices";
 
 function App() {
-  const [data, setData] = useState([]);
+  // const [data, setData] = useState([]);
   const [input, setInput] = useState("");
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await getTodos();
-        // console.log(response.data);
-        setData(response.data);
-      } catch (error) {
-        console.log(error.message);
-      }
-    };
-    fetchData();
-  }, [data]);
+  const data = useSelector((state) => state.postReducer);
+  const store = useSelector((state) => state.store);
+
+  // useEffect(() => {
+  //   const fetchData = () => {
+  //     store.dispatch(getPosts());
+  //   };
+  //   fetchData();
+  // }, [store]);
+  // store.dispatch(getPosts());
+
+  // const dispatch = useDispatch();
+
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     try {
+  //       const response = await getTodos();
+  //       // console.log(response.data);
+
+  //       setData(response.data);
+  //     } catch (error) {
+  //       console.log(error.message);
+  //     }
+  //   };
+  //   fetchData();
+  // }, [data]);
 
   return (
     <div className="container">

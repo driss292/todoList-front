@@ -1,7 +1,6 @@
 import axios from "axios";
-const apiUrl =
-  // "http://localhost:3000"
-  "https://dk-todo-list-api.herokuapp.com";
+const apiUrl = "http://localhost:3000";
+// "https://dk-todo-list-api.herokuapp.com";
 export function getTodos() {
   return axios.get(apiUrl + "/todos");
 }

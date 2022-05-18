@@ -1,4 +1,6 @@
 import React from "react";
+import { useDispatch } from "react-redux";
+import { addPost, getPosts } from "../actions/post.action";
 import {
   addTodo,
   // getTodos,
@@ -8,15 +10,20 @@ import {
 } from "../services/todoServices";
 
 export default function Form({ input, setInput }) {
+  const dispatch = useDispatch();
+
   const onFormSubmit = async (e) => {
     e.preventDefault();
-    try {
-      await addTodo({ text: input, completed: false });
-      //   console.log(response);
-      setInput("");
-    } catch (error) {
-      console.log(error.message);
-    }
+
+    const data = { text: input, completed: false };
+    await dispatch(addPost(data));
+    setInput("");
+    dispatch(getPosts());
+    // try {
+    //   console.log(response);
+    // } catch (error) {
+    //   console.log(error.message);
+    // }
   };
   return (
     <form onSubmit={onFormSubmit}>

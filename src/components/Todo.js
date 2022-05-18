@@ -1,14 +1,20 @@
 import React, { useState } from "react";
-import { updateTodo, deleteTodo, completeTodo } from "../services/todoServices";
+import { useDispatch } from "react-redux";
+import { deletePost, getPosts } from "../actions/post.action";
+import { updateTodo, completeTodo } from "../services/todoServices";
 
 export default function Todo({ todo, todoId }) {
   const [isCompleted, setIscompleted] = useState(false);
   const [edit, setEdit] = useState(false);
   const [editMess, setEditMess] = useState(null);
 
+  const dispatch = useDispatch();
   const handleDelete = async (todoId) => {
-    const response = await deleteTodo(todoId);
-    console.log(response);
+    await dispatch(deletePost(todoId));
+    dispatch(getPosts());
+
+    // const response = await deleteTodo(todoId);
+    // console.log(response);
   };
   const handleEdit = async (todoId) => {
     setEdit(false);
@@ -37,6 +43,7 @@ export default function Todo({ todo, todoId }) {
       {/* <p>{todo.text}</p> */}
       {edit ? (
         <input
+          autoFocus
           type="text"
           defaultValue={editMess ? editMess : todoId}
           className="list-input"
