@@ -1,13 +1,7 @@
 import React from "react";
 import { useDispatch } from "react-redux";
 import { addPost, getPosts } from "../actions/post.action";
-import {
-  addTodo,
-  // getTodos,
-  // updateTodo,
-  // deleteTodo,
-  // completeTodo,
-} from "../services/todoServices";
+import { v4 as uuidv4 } from "uuid";
 
 export default function Form({ input, setInput }) {
   const dispatch = useDispatch();

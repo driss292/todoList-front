@@ -1,20 +1,18 @@
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
-import { deletePost, getPosts } from "../actions/post.action";
-import { updateTodo, completeTodo } from "../services/todoServices";
+import { useDispatch, useSelector } from "react-redux";
+import { completePost, deletePost, getPosts } from "../actions/post.action";
+import { updateTodo } from "../services/todoServices";
 
 export default function Todo({ todo, todoId }) {
+  // const status = useSelector((state) => state.postReducer);
   const [isCompleted, setIscompleted] = useState(false);
   const [edit, setEdit] = useState(false);
   const [editMess, setEditMess] = useState(null);
-
   const dispatch = useDispatch();
+
   const handleDelete = async (todoId) => {
     await dispatch(deletePost(todoId));
     dispatch(getPosts());
-
-    // const response = await deleteTodo(todoId);
-    // console.log(response);
   };
   const handleEdit = async (todoId) => {
     setEdit(false);
@@ -26,20 +24,28 @@ export default function Todo({ todo, todoId }) {
     }
   };
   const handleComplete = async (todoId) => {
-    if (!isCompleted) {
-      await completeTodo(todoId, {
-        completed: true,
-      });
-      setIscompleted(true);
-    } else {
-      await completeTodo(todoId, {
-        completed: false,
-      });
+    if (isCompleted) {
+      await dispatch(
+        completePost(todoId, {
+          completed: true,
+        })
+      );
+      dispatch(getPosts());
       setIscompleted(false);
+    } else {
+      await dispatch(
+        completePost(todoId, {
+          completed: false,
+        })
+      );
+      dispatch(getPosts());
+      setIscompleted(true);
     }
   };
   return (
-    <li className={isCompleted ? "list-item complete" : "list-item"}>
+    <li
+      className={todo.completed === false ? "list-item" : "list-item complete"}
+    >
       {/* <p>{todo.text}</p> */}
       {edit ? (
         <input
