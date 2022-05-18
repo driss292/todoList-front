@@ -1,6 +1,11 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { completePost, deletePost, getPosts } from "../actions/post.action";
+import {
+  completePost,
+  deletePost,
+  editPost,
+  getPosts,
+} from "../actions/post.action";
 import { updateTodo } from "../services/todoServices";
 
 export default function Todo({ todo, todoId }) {
@@ -15,12 +20,16 @@ export default function Todo({ todo, todoId }) {
     dispatch(getPosts());
   };
   const handleEdit = async (todoId) => {
-    setEdit(false);
     if (editMess) {
-      const response = await updateTodo(todoId, {
-        text: editMess,
-      });
-      console.log(response);
+      await dispatch(
+        editPost(todoId, {
+          text: editMess,
+        })
+      );
+      dispatch(getPosts());
+
+      setEdit(false);
+      // console.log(response);
     }
   };
   const handleComplete = async (todoId) => {
